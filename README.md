@@ -1,12 +1,12 @@
 # runtime_measure
 C++11 [RAII](https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization) class to measure CPU time spent executing instructions of the calling process.
 
-### :clipboard: Features:
+### :clipboard: Features
 * Invokes the given callback after measuring
 * Measures user-space and kernel-space CPU time
 * Measuring can be done before lifetime ends
 
-### :warning: Requirements:
+### :warning: Requirements
 * **C++11**
 * **POSIX**
 
