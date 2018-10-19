@@ -12,7 +12,7 @@ C++11 [RAII](https://en.wikipedia.org/wiki/Resource_acquisition_is_initializatio
 
 ### Examples
 
-  [Example](/#Example), [Example 1](/#Example-1), [Example 2](/#Example-2)
+  [Example](/README.md#example), [Example 1](/README.md#example-1), [Example 2](/README.md#example-2)
 
 ## Example
 
