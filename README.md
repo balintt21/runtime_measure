@@ -1,2 +1,35 @@
 # runtime_measure
 C++11 [RAII](https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization) class to measure CPU time spent executing instructions of the calling process.
+
+## Example
+
+```c++
+#include <stdio.h>
+#include <experimental/random>
+#include "runtime_measurement.h"
+
+double userSpaceWorker(uint32_t cycle_count)
+{
+    int numerator = 0;
+    int denominator = 0;
+    double sum = 0.0;
+    for(int i = 0; i < cycle_count; ++i)
+    {
+        numerator = std::experimental::randint(1, 1024);
+        denominator = std::experimental::randint(1, 1024);
+        sum += (numerator / static_cast<double>(denominator));
+    }
+    return sum;
+}
+
+int main(int argc, char** argv)
+{
+    RuntimeMeasurement measurerer([](const RuntimeMeasurement::Result& result)
+    {
+        printf("measurement: user-space: %ld(%f s), kernel-space: %ld(%f s)\n"
+              , result.user_time_clktck, result.userTimeToSec(), result.system_time_clktck, result.systemTimeToSec());
+    });
+    auto sum = userSpaceWorker(25*1024*1024);
+    return 0;
+}
+```
