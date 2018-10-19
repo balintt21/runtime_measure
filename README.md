@@ -10,6 +10,8 @@ C++11 [RAII](https://en.wikipedia.org/wiki/Resource_acquisition_is_initializatio
 * **C++11**
 * **POSIX**
 
+### [Implementation](/runtime_measurement.h)
+
 ### Examples
 
   [Example](/README.md#example), [Example 1](/README.md#example-1), [Example 2](/README.md#example-2)
