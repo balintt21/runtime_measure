@@ -33,3 +33,41 @@ int main(int argc, char** argv)
     return 0;
 }
 ```
+
+## Example 2
+
+```c++
+int main(int argc, char** argv)
+{
+    double sum = 0.0;
+    {
+        RuntimeMeasurement measurerer([](const RuntimeMeasurement::Result& result)
+        {
+            printf("measurement: user-space: %ld(%f s), kernel-space: %ld(%f s)\n"
+                  , result.user_time_clktck, result.userTimeToSec(), result.system_time_clktck, result.systemTimeToSec());
+        });
+        sum = userSpaceWorker(25*1024*1024);
+        //lifetime of the measurerer ends here
+    }
+    printf("Sum: %f\n", sum);
+    return 0;
+}
+```
+
+## Example 3
+
+```c++
+int main(int argc, char** argv)
+{
+    double sum = 0.0;
+    RuntimeMeasurement measurerer;
+    sum = userSpaceWorker(25*1024*1024);
+    
+    auto result = measurerer.measure();
+    
+    printf("measurement: user-space: %ld(%f s), kernel-space: %ld(%f s)\n"
+                  , result.user_time_clktck, result.userTimeToSec(), result.system_time_clktck, result.systemTimeToSec());
+    printf("Sum: %f\n", sum);
+    return 0;
+}
+```
