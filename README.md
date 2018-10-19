@@ -47,7 +47,7 @@ int main(int argc, char** argv)
                   , result.user_time_clktck, result.userTimeToSec(), result.system_time_clktck, result.systemTimeToSec());
         });
         sum = userSpaceWorker(25*1024*1024);
-        //lifetime of the measurerer ends here
+        //lifetime of measurerer ends here
     }
     printf("Sum: %f\n", sum);
     return 0;
