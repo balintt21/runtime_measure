@@ -33,10 +33,10 @@ public:
     inline Result measure()
     {
         times(&mCurrentTimes);
-        Result result {  std::chrono::time_point_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now())
-                                                                               .time_since_epoch().count() - mStartTime
-                       , (mCurrentTimes.tms_utime - mStartTimes.tms_utime)
+        Result result {  (mCurrentTimes.tms_utime - mStartTimes.tms_utime)
                        , (mCurrentTimes.tms_stime - mStartTimes.tms_stime)
+                       , std::chrono::time_point_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now())
+                                                                               .time_since_epoch().count() - mStartTime
                        , sysconf(_SC_CLK_TCK) };
         if( mResultCallback ) { mResultCallback(result); }
         return result;
