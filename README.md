@@ -6,6 +6,10 @@ Features:
 * Measures user-space and kernel-space CPU time
 * Measuring can be done before lifetime ends
 
+Requirements:
+* Up to C++11
+* POSIX
+
 ## Example
 
 ```c++
