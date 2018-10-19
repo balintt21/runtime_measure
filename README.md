@@ -10,6 +10,10 @@ C++11 [RAII](https://en.wikipedia.org/wiki/Resource_acquisition_is_initializatio
 * **C++11**
 * **POSIX**
 
+### Examples
+
+  [Example](/#Example), [Example 1](/#Example-1), [Example 2](/#Example-2)
+
 ## Example
 
 ```c++
@@ -43,7 +47,7 @@ int main(int argc, char** argv)
 }
 ```
 
-## Example 2
+## Example 1
 
 ```c++
 int main(int argc, char** argv)
@@ -63,7 +67,7 @@ int main(int argc, char** argv)
 }
 ```
 
-## Example 3
+## Example 2
 
 ```c++
 int main(int argc, char** argv)
