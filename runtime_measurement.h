@@ -9,9 +9,6 @@
 
 class RuntimeMeasurement
 {
-    struct tms                              mStartTimes;
-    struct tms                              mCurrentTimes;
-    std::function<void (int64_t, int64_t)>  mResultCallback;
 public:
     struct Result
     {
@@ -22,29 +19,31 @@ public:
         double userTimeToSec() const { return (user_time_clktck / static_cast<double>(clocks_per_sec)); }
         double systemTimeToSec() const { return (system_time_clktck / static_cast<double>(clocks_per_sec)); }
     };
-
+protected:
+    struct tms                              mStartTimes;
+    struct tms                              mCurrentTimes;
+    std::function<void (const Result&)>  mResultCallback;
+public:
     static int64_t CLOCK_TICKS_PER_SEC() { return sysconf(_SC_CLK_TCK); }
 
-    Result measure()
+    inline Result measure()
     {
         times(&mCurrentTimes);
-        return {  (mCurrentTimes.tms_utime - mStartTimes.tms_utime)
-                , (mCurrentTimes.tms_stime - mStartTimes.tms_stime)
-                , sysconf(_SC_CLK_TCK) };
+        Result result {  (mCurrentTimes.tms_utime - mStartTimes.tms_utime)
+                       , (mCurrentTimes.tms_stime - mStartTimes.tms_stime)
+                       , sysconf(_SC_CLK_TCK) };
+        if( mResultCallback ) { mResultCallback(result); }
+        return result;
     }
     
-    RuntimeMeasurement(const std::function<void (int64_t, int64_t)>& result_callback = nullptr) : mResultCallback(result_callback)
+    RuntimeMeasurement(const std::function<void (const Result&)>& result_callback = nullptr) : mResultCallback(result_callback)
     {
         times(&mStartTimes);
     }
     
     ~RuntimeMeasurement()
     {
-        if( mResultCallback )
-        {
-            auto measurement = measure();
-            mResultCallback(measurement.user_time_clktck, measurement.system_time_clktck);
-        }
+        measure();
     }
 };
 
